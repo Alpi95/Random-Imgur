@@ -65,7 +65,7 @@ namespace RandomImgur
 
                 if(title != "imgur: the simple 404 page")
                 {
-                    string appendText = i.ToString() + "\t-\t" + URL + "\t" + title +  Environment.NewLine;
+                    string appendText = i.ToString() + " " + URL + Environment.NewLine;
                     File.AppendAllText(path, appendText);
                 }
             }
