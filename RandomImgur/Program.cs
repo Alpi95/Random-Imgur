@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using HtmlAgilityPack;
-
+using System.Net;
 
 namespace RandomImgur
 {
     class Program
     {
         private static readonly Random rnd = new Random();
-        private static string url = "https://imgur.com/";
+        private static string url = "https://i.imgur.com/";
 
         //static private string[] charList = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         static private string[] charList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -55,7 +55,7 @@ namespace RandomImgur
                 File.WriteAllText(path, createText);
             }
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10000; i++)
             {   
                 URL = url + GenerateIndentifier();
 
@@ -67,6 +67,9 @@ namespace RandomImgur
                 {
                     string appendText = i.ToString() + " " + URL + Environment.NewLine;
                     File.AppendAllText(path, appendText);
+
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFile(URL + ".jpg", @"C:\Users\Aleksander\Desktop\pics\" + i + ".jpg");
                 }
             }
             Console.WriteLine(Thread.CurrentThread.Name + " Finished");
