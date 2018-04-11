@@ -57,7 +57,7 @@ namespace RandomImgur
             for (int i = 0; i < 10000; i++)
             {
                 string identifier = GenerateIndentifier();
-                string fullUrl = url + identifier;
+                fullUrl = url + identifier;
 
                 var webGet = new HtmlWeb();
                 var document = webGet.Load(fullUrl);
