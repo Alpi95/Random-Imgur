@@ -14,10 +14,8 @@ namespace RandomImgur
     {
         private static readonly Random rnd = new Random();
         private static string url = "https://i.imgur.com/";
-
         static private string[] charList = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        //static private string[] charList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
+        
         static private string RandomCharOrNmb()
         {
             return charList[rnd.Next(0, charList.Length)];
@@ -46,30 +44,32 @@ namespace RandomImgur
 
         private static void Search()
         {
-            string path = @"C:\Users\Aleksander\Desktop\imgur.txt";
-            string URL;
+            //  string path = @"C:\Users\Aleksander\Desktop\imgur.txt";
+            string imgPath = @"C:\Users\Aleksander\Desktop\pics\";
+            string fullUrl;
 
-            if (!File.Exists(path))
-            {
-                string createText = "URL's:" + Environment.NewLine;
-                File.WriteAllText(path, createText);
-            }
+          //  if (!File.Exists(path))
+          //  {
+          //      string createText = "URL's:" + Environment.NewLine;
+          //      File.WriteAllText(path, createText);
+          //  }
 
             for (int i = 0; i < 10000; i++)
-            {   
-                URL = url + GenerateIndentifier();
+            {
+                string identifier = GenerateIndentifier();
+                fullUrl = url + identifier;
 
                 var webGet = new HtmlWeb();
-                var document = webGet.Load(URL);
+                var document = webGet.Load(fullUrl);
                 var title = document.DocumentNode.SelectSingleNode("html/head/title").InnerText;
 
                 if(title != "imgur: the simple 404 page")
                 {
-                    string appendText = i.ToString() + " " + URL + Environment.NewLine;
-                    File.AppendAllText(path, appendText);
+                  //  string appendText = i.ToString() + " " + URL + Environment.NewLine;
+                  //  File.AppendAllText(path, appendText);
 
                     WebClient webClient = new WebClient();
-                    webClient.DownloadFile(URL + ".jpg", @"C:\Users\Aleksander\Desktop\pics\" + i + ".jpg");
+                    webClient.DownloadFile(fullUrl + ".jpg", imgPath + identifier + ".jpg");
                 }
             }
             Console.WriteLine(Thread.CurrentThread.Name + " Finished");
