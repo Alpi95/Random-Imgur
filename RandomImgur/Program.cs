@@ -44,15 +44,15 @@ namespace RandomImgur
 
         private static void Search()
         {
-            //  string path = @"C:\Users\Aleksander\Desktop\imgur.txt";
-            string imgPath = @"C:\Users\Aleksander\Desktop\pics\";
+            string path = @"..\..\imgur.txt";
+            string imgPath = @"..\..\";
             string fullUrl;
 
-          //  if (!File.Exists(path))
-          //  {
-          //      string createText = "URL's:" + Environment.NewLine;
-          //      File.WriteAllText(path, createText);
-          //  }
+            if (!File.Exists(path))
+            {
+                 string createText = "URL's:" + Environment.NewLine;
+                 File.WriteAllText(path, createText);
+            }
 
             for (int i = 0; i < 10000; i++)
             {
@@ -65,8 +65,8 @@ namespace RandomImgur
 
                 if(title != "imgur: the simple 404 page")
                 {
-                  //  string appendText = i.ToString() + " " + URL + Environment.NewLine;
-                  //  File.AppendAllText(path, appendText);
+                    string appendText = i.ToString() + " " + fullUrl + Environment.NewLine;
+                    File.AppendAllText(path, appendText);
 
                     WebClient webClient = new WebClient();
                     webClient.DownloadFile(fullUrl + ".jpg", imgPath + identifier + ".jpg");
